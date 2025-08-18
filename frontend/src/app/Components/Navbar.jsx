@@ -12,12 +12,13 @@ const Navbar = () => {
       ]
     },
     {
-      label: "Contact",
+      label: "Contact Us",
       bgColor: "#271E37", 
       textColor: "#fff",
       links: [
         { label: "Email", ariaLabel: "Email us" },
-        { label: "Form", ariaLabel: "Form" },
+        { label: "Github", ariaLabel: "Form" },
+        { label: "LinkedIn", ariaLabel: "Form" },
       ]
     }
   ];
@@ -25,7 +26,7 @@ const Navbar = () => {
   return (
     <CardNav
       logo=''
-      logoAlt="Company Logo"
+      logoAlt="VENDORS"
       items={items}
       baseColor="#fff"
       menuColor="#000"
