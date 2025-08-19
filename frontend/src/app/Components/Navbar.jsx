@@ -1,24 +1,26 @@
 import React from 'react';
 import CardNav from '@/blocks/Components/CardNav/CardNav';
 
+
 const Navbar = () => {
   const items = [
     {
-      label: "Your Page", 
+      label: "Your Page",
       bgColor: "#170D27",
       textColor: "#fff",
       links: [
-        { label: "Your Page", ariaLabel: "Featured Projects"},
+        { label: "Home", href: "/Home", ariaLabel: "Go to Home" },
+        { label: "Your Page", href: "/YourPage", ariaLabel: "View Projects" },
       ]
     },
     {
       label: "Contact Us",
-      bgColor: "#271E37", 
+      bgColor: "#271E37",
       textColor: "#fff",
       links: [
-        { label: "Email", ariaLabel: "Email us" },
-        { label: "Github", ariaLabel: "Form" },
-        { label: "LinkedIn", ariaLabel: "Form" },
+        { label: "Email", href: "mailto:someone@example.com", ariaLabel: "Email us" },
+        { label: "GitHub", href: "https://github.com/yourusername", ariaLabel: "Visit GitHub" },
+        { label: "LinkedIn", href: "https://linkedin.com/in/yourprofile", ariaLabel: "Visit LinkedIn" },
       ]
     }
   ];
@@ -37,4 +39,6 @@ const Navbar = () => {
   );
 };
 
-export default Navbar
+
+
+export default Navbar;

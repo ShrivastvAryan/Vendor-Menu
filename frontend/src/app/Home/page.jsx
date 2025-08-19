@@ -6,20 +6,10 @@ import { QrCode, Smartphone, Menu, Users, Zap, ArrowRight, Star, CheckCircle } f
 
 const Home = () => {
 
-  const [isVisible, setIsVisible] = useState(false);
-
-   useEffect(() => {
-    setIsVisible(true);
-    const interval = setInterval(() => {
-      setCurrentFeature((prev) => (prev + 1) % 3);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
-
   return (
-    <>
-    <div className='flex flex-row gap-3 px-12 md:py-20'>
-        <span className='font-semibold text-6xl'>Grow Your</span>
+    <div className='flex md:flex-row'>
+    <div className='flex flex-col gap-3 px-20 md:py-20 w-[50%]'>
+        <span className='font-semibold text-7xl'>Grow Your</span>
         <span>
         <RotatingText
   texts={['Business', 'Reach', 'Presence']}
@@ -34,13 +24,33 @@ const Home = () => {
   rotationInterval={2000}
 />
 </span>
-    </div>
 
-    <div>
-      <div className={`transform transition-all duration-1000 delay-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+ <p className='mt-12 text-2xl text-gray-800'>Transform your restaurant with instant QR code menus. No more printing costs, real-time updates and 
+  seamless customer experience
+ </p>
+
+<div className='flex gap-6 mt-6'>
+ <div className=' flex flex-row justify-center gap-2 bg-[#271E37] text-white rounded-4xl p-2 px-4'><span className='inline-block'><QrCode/></span><span> Instant QR Menus</span></div>
+ <div className=' flex flex-row justify-center gap-2 bg-[#271E37] text-white rounded-4xl p-2  px-4'><span  className='inline-block'><Smartphone/></span><span> Mobile Optimized</span></div>
+  <div className=' flex flex-row justify-center gap-2 bg-[#271E37] text-white rounded-4xl p-2  px-4'><span  className='inline-block'><Zap/></span><span> Easy Updates</span></div>
+ </div>
+
+ <span className='w-full inline-block h-[2px] bg-black my-8'></span>
+
+ <div className='flex flex-row gap-14'>
+  <p className='text-xl'>100% Free</p>
+  <p className='text-xl'>No Hidden Charges</p>
+   <p className='text-xl'>Real Time Updates</p>
+ </div>
+
+    </div>
+   
+
+    <div className='w-[50%]'>
+      <div className='transform transition-all duration-1000 delay-300'>
             <div className="relative">
               {/* Phone Mockup */}
-              <div className="relative mx-auto w-80 h-[640px] bg-gray-900 rounded-[3rem] p-2 shadow-2xl">
+              <div className="relative mx-auto w-80 h-[600px] bg-gray-900 rounded-[3rem] p-2 shadow-2xl my-4">
                 <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
                   {/* Phone Screen Content */}
                   <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-white p-6">
@@ -75,27 +85,13 @@ const Home = () => {
                   <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent pointer-events-none"></div>
                 </div>
 
-                {/* Phone Shadow */}
-                <div className="absolute -inset-4 bg-gradient-to-b from-purple-600/20 to-transparent rounded-[4rem] -z-10"></div>
-              </div>
-
-              {/* Floating Elements */}
-              <div className="absolute -top-8 -left-8 bg-white/10 backdrop-blur-sm rounded-2xl p-4 animate-bounce delay-500">
-                <QrCode className="w-8 h-8 text-purple-400" />
-              </div>
               
-              <div className="absolute -bottom-4 -right-4 bg-white/10 backdrop-blur-sm rounded-2xl p-4 animate-bounce delay-1000">
-                <Smartphone className="w-8 h-8 text-pink-400" />
-              </div>
-
-              <div className="absolute top-1/2 -left-12 bg-white/10 backdrop-blur-sm rounded-2xl p-3 animate-bounce delay-1500">
-                <Users className="w-6 h-6 text-yellow-400" />
               </div>
             </div>
           </div>
         </div>
 
-    </>
+    </div>
   )
 }
 

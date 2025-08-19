@@ -1,14 +1,35 @@
 import React from 'react'
+import {
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from '@clerk/nextjs'
+import Menu from '../Menu/page'
 import Link from 'next/link'
 
-const YourPage = () => {
+const Create = () => {
   return (
     <div>
-        <Link href='/Create'>
-        <button>Click here to create page</button>
-        </Link>
-    </div>
+
+         <header className="flex justify-end items-center p-4 gap-4 h-16">
+            <SignedOut>
+              <SignInButton />
+              <SignUpButton>
+                <UserButton/>
+              </SignUpButton>
+            </SignedOut>
+            <SignedIn>
+              
+            </SignedIn>
+          </header>
+
+
+           <Menu/>
+            </div>
+
   )
 }
 
-export default YourPage
+export default Create
