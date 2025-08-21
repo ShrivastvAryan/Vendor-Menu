@@ -3,6 +3,7 @@ import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Ubuntu } from "next/font/google";
+import Providers from "../../Provider";
 
 const ubuntu = Ubuntu({
   subsets: ["latin"],
@@ -19,8 +20,10 @@ export default function RootLayout({ children }) {
     <ClerkProvider>
       <html lang="en">
         <body className={ubuntu.className}>
+          <Providers>
           <Navbar />
           {children}
+          </Providers>
         </body>
       </html>
     </ClerkProvider>

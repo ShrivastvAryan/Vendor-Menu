@@ -26,7 +26,7 @@ const Create = () => {
           </header>
 
 
-           <Menu/>
+          
             </div>
 
   )
