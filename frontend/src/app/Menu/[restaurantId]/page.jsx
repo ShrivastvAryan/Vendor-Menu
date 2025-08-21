@@ -47,10 +47,10 @@ const Menu = () => {
     <div className='w-full max-w-4xl mx-auto shadow-lg my-4 p-4 sm:p-6 rounded-2xl bg-white'>
 
          <div className='mb-6'>
-        <h1 className='text-2xl sm:text-3xl font-bold text-gray-800 text-center'> - Our Menu</h1>
+        <h1 className='text-2xl sm:text-3xl font-bold text-gray-800 text-center'> Our Menu</h1>
         <p className='text-gray-600 text-center mt-2'>Authentic flavors, made with love</p>
       </div>
-      
+
       {data?.data?.sections?.map((section,sectionIndex)=>(
       <div>
       
@@ -70,7 +70,7 @@ const Menu = () => {
           </AccordionContent>
         </AccordionItem> */}
 
-        <AccordionItem value="all" className='border rounded-lg'>
+        <AccordionItem value="all" className='border rounded-lg mb-2'>
          <div key={sectionIndex}>
           <AccordionTrigger className='text-xl sm:text-2xl px-4 hover:bg-gray-50'>
             {section.sectionName}
@@ -82,11 +82,11 @@ const Menu = () => {
         <div key={index} className="mb-4 last:mb-0">
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-0">
             <div className="flex flex-row gap-2 w-full sm:w-[60%]">
-              <span className="font-medium">{item.name}</span>
+              <span className="text-xl">{item.name}</span>
               <span
                 className={`h-3 w-3 rounded-full ${
-                  item.Veg ? "bg-green-600" : "bg-red-600"
-                } inline-block flex-shrink-0 mt-1`}
+                  item.type==='Veg' ? "bg-green-600" : "bg-red-600"
+                } inline-block flex-shrink-0 mt-2`}
               ></span>
             </div>
 
