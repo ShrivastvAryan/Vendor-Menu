@@ -12,14 +12,14 @@ import api from '../../../../Api/api';
 import { useParams } from 'next/navigation';
 
 // API function
-const getRestaurantById = async (restaurantId) => {
-  const response = await api.get(`/${restaurantId}`);
+const getRestaurantById = async (_id) => {
+  const response = await api.get(`/${_id}`);
   return response.data; 
 };
 
 const Menu = () => { 
   const params = useParams();
-  const restaurantId = params?.restaurantId;
+  const restaurantId = params?._id;
 
   const { data, error, isLoading } = useQuery({
     queryKey: ["restaurant", restaurantId],
@@ -47,7 +47,9 @@ const Menu = () => {
     <div className='w-full max-w-4xl mx-auto shadow-lg my-4 p-4 sm:p-6 rounded-2xl bg-white'>
 
          <div className='mb-6'>
-        <h1 className='text-2xl sm:text-3xl font-bold text-gray-800 text-center'> Our Menu</h1>
+      
+        <h1 className='text-2xl sm:text-3xl font-bold text-gray-800 text-center'>  {data?.data?.restaurantName || "Restaurant Name"}</h1>
+        <h2 className='text-md text-gray-800 text-center mt-3'>{data?.data?.restaurantNumber || "+91 XXXXX XXXXX"} | {data?.data?.restaurantAddress || "Restaurant Address"}</h2>
         <p className='text-gray-600 text-center mt-2'>Authentic flavors, made with love</p>
       </div>
 

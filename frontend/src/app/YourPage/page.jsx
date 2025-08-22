@@ -6,7 +6,7 @@ import {
   SignedOut,
   UserButton,
 } from '@clerk/nextjs'
-import Menu from '../Menu/[restaurantId]/page'
+import Menu from '../Menu/[_id]/page'
 import Link from 'next/link'
 
 const Create = () => {
