@@ -3,10 +3,13 @@ const Menu=require('../modals/menu-modal')
 // Create a new Menu
 const createMenu = async (req, res) => {
   try {
-    const { restaurantId, sections } = req.body;
+    const { _id, restaurantName, restaurantAddress, restaurantNumber, sections } = req.body;
 
     const menu = new Menu({
-      restaurantId,
+      _id,
+      restaurantName,
+      restaurantAddress,
+      restaurantNumber,
       sections,
     });
 
@@ -15,15 +18,15 @@ const createMenu = async (req, res) => {
     res.status(201).json({ success: true, data: menu });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
-    console.log(error)
+    console.log(error);
   }
 };
 
 //  Get Menu by restaurant
 const getMenu = async (req, res) => {
   try {
-    const { restaurantId } = req.params;
-    const menu = await Menu.findOne({ restaurantId });
+    const { _id } = req.params;
+    const menu = await Menu.findOne({ _id });
 
     if (!menu) {
       return res.status(404).json({ success: false, message: "Menu not found" });
@@ -38,11 +41,11 @@ const getMenu = async (req, res) => {
 // Update Menu
 const updateMenu = async (req, res) => {
   try {
-    const { restaurantId } = req.params;
+    const { _id } = req.params;
     const { sections } = req.body;
 
     const menu = await Menu.findOneAndUpdate(
-      { restaurantId },
+      { _id },
       { sections },
       { new: true, upsert: true }
     );
@@ -56,10 +59,10 @@ const updateMenu = async (req, res) => {
 //  Delete a Section
 const deleteSection = async (req, res) => {
   try {
-    const { restaurantId, sectionId } = req.params;
+    const { _id, sectionId } = req.params;
 
     const menu = await Menu.findOneAndUpdate(
-      { restaurantId },
+      { _id },
       { $pull: { sections: { _id: sectionId } } },
       { new: true }
     );
@@ -73,11 +76,11 @@ const deleteSection = async (req, res) => {
 //  Add Item to a Section
 const addItemToSection = async (req, res) => {
   try {
-    const { restaurantId, sectionId } = req.params;
+    const { _id, sectionId } = req.params;
     const { name, type, description, prices } = req.body;
 
     const menu = await Menu.findOneAndUpdate(
-      { restaurantId, "sections._id": sectionId },
+      { _id, "sections._id": sectionId },
       {
         $push: {
           "sections.$.items": { name, type, description, prices },

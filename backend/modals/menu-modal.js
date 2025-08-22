@@ -18,8 +18,11 @@ const SectionSchema = new mongoose.Schema({
 
 const MenuSchema = new mongoose.Schema(
   {
+    restaurantName:{type:String,required:true},
+    restaurantAddress:{type:String,required:true},
+    restaurantNumber:{type:Number,required:true},
     restaurantId: { type: mongoose.Schema.Types.ObjectId, ref: "Restaurant" }, 
-    sections: [SectionSchema], // multiple sections
+    sections: [SectionSchema]
   },
   { timestamps: true }
 );
