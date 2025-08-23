@@ -9,7 +9,7 @@ const {
 
 const router = express.Router();
 
-router.post("/post", createMenu);
+router.post("/", createMenu);
 router.get("/:_id", getMenu);
 router.put("/:_id", updateMenu);
 router.delete("/:_id/section/:sectionId", deleteSection);

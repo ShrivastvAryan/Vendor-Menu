@@ -1,6 +1,6 @@
 const { requireAuth } = require('@clerk/express');
 
-app.post("/post", requireAuth(), async (req, res) => {
+app.post("/", requireAuth(), async (req, res) => {
   try {
     const { userId } = req.auth;  // Clerk injects auth info
 

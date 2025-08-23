@@ -10,10 +10,14 @@ import { CirclePlus, Trash2 } from "lucide-react";
 import useRestaurantStore from "../../../useRestaurantStore";
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
+import { useAuth } from "@clerk/clerk-react";
 
 const MenuForm = () => {
 
+  const { getToken } = useAuth();
+
   const {
+    restaurant,
     sections,
     addSection,
     deleteSection,
@@ -26,7 +30,8 @@ const MenuForm = () => {
 
   const handleSubmit = async () => {
     try {
-      const res = await submitData();
+      const token = await getToken();
+      const res = await submitData(token);
       console.log("Submitted successfully:", res);
        toast.success('Menu Saved Successfully', {
        position: "top-center",
@@ -150,7 +155,7 @@ transition={Bounce}
                               type="text"
                               className="w-full border border-gray-300 rounded-xl p-2 text-center focus:outline-none focus:ring-2 focus:ring-blue-500"
                               placeholder={`${size} Price`}
-                              value={item[size]}
+                              value={item[size]??''}
                               onChange={(e) =>
                                 updateItemField(sectionIndex, itemIndex, size, e.target.value)
                               }

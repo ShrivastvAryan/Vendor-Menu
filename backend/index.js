@@ -12,13 +12,6 @@ const PORT = 5000;
 app.use(express.json());
 app.use(cors());
 
-// ✅ Initialize Clerk middleware globally
-app.use(
-  requireAuth({
-    publishableKey: process.env.CLERK_PUBLISHABLE_KEY,
-    secretKey: process.env.CLERK_SECRET_KEY,
-  })
-);
 
 // ✅ Protect only /api/menu routes
 app.use("/api/menu", requireAuth(), menuRoutes);

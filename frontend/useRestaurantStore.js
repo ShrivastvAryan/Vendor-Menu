@@ -45,11 +45,11 @@ const useRestaurantStore = create((set, get) => ({
     sections[sectionIndex].items.push({
       name: "",
       type: "Veg",
-     prices: {
-      quarter: 0,
-      half: 0,
-      full: 0,
-    },
+      prices: {
+        quarter: 0,
+        half: 0,
+        full: 0,
+      },
       description: "",
     });
     set({ sections });
@@ -70,15 +70,22 @@ const useRestaurantStore = create((set, get) => ({
   },
 
   // ---------- Submit to Backend ----------
-  submitData: async () => {
+  submitData: async (token) => {
     try {
       const { restaurant, sections } = get();
-      const response = await api.post("/post", {
-        ...restaurant,
-        sections,
-      });
+      const response = await api.post(
+        "/api/menu",
+        {
+          ...restaurant,
+          sections,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` }, 
+        }
+      );
       return response.data;
     } catch (err) {
+
       console.error("Error submitting data:", err);
       throw err;
     }
