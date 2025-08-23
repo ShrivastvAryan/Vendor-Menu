@@ -33,16 +33,6 @@ const Menu = () => {
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
-
-  const MenuItem = ({ data }) => {
-  return (
-    <>
-     
-    </>
-  );
-};
-
-
   return (
     <div className='w-full max-w-4xl mx-auto shadow-lg my-4 p-4 sm:p-6 rounded-2xl bg-white'>
 
@@ -54,7 +44,7 @@ const Menu = () => {
       </div>
 
       {data?.data?.sections?.map((section,sectionIndex)=>(
-      <div>
+      
       
 
       <Accordion type="single" collapsible className='space-y-2'>
@@ -121,9 +111,6 @@ const Menu = () => {
         </AccordionItem>
 
       </Accordion>
-
-      </div>
-
       ))}
     
     </div>

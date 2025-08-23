@@ -22,6 +22,9 @@ const MenuSchema = new mongoose.Schema(
     restaurantAddress:{type:String,required:true},
     restaurantNumber:{type:Number,required:true},
     restaurantId: { type: mongoose.Schema.Types.ObjectId, ref: "Restaurant" }, 
+
+    clerkUserId: { type: String, required: true },
+
     sections: [SectionSchema]
   },
   { timestamps: true }
