@@ -10,20 +10,29 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import api from '../../../../Api/api';
 import { useParams } from 'next/navigation';
+import { useAuth } from "@clerk/nextjs";
 
 // API function
-const getRestaurantById = async (_id) => {
-  const response = await api.get(`/${_id}`);
-  return response.data; 
+const getRestaurantById = async (_id, token) => {
+  const response = await api.get(`/api/menu/${_id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
 };
 
 const Menu = () => { 
+   const { getToken } = useAuth(); 
   const params = useParams();
   const restaurantId = params?._id;
 
   const { data, error, isLoading } = useQuery({
     queryKey: ["restaurant", restaurantId],
-    queryFn: () => getRestaurantById(restaurantId),
+     queryFn: async () => {
+      const token = await getToken();
+      return getRestaurantById(restaurantId, token);
+    },
     enabled: !!restaurantId,
   });
 
@@ -36,18 +45,16 @@ const Menu = () => {
   return (
     <div className='w-full max-w-4xl mx-auto shadow-lg my-4 p-4 sm:p-6 rounded-2xl bg-white'>
 
-         <div className='mb-6'>
+         <div className='mb-6 flex justify-center flex-col'>
       
-        <h1 className='text-2xl sm:text-3xl font-bold text-gray-800 text-center'>  {data?.data?.restaurantName || "Restaurant Name"}</h1>
+        <h1 className='text-2xl sm:text-3xl font-bold bg-[#FFDE21] text-black text-center'>  {data?.data?.restaurantName || "Restaurant Name"}</h1>
         <h2 className='text-md text-gray-800 text-center mt-3'>{data?.data?.restaurantNumber || "+91 XXXXX XXXXX"} | {data?.data?.restaurantAddress || "Restaurant Address"}</h2>
         <p className='text-gray-600 text-center mt-2'>Authentic flavors, made with love</p>
       </div>
 
       {data?.data?.sections?.map((section,sectionIndex)=>(
       
-      
-
-      <Accordion type="single" collapsible className='space-y-2'>
+      <Accordion type="single" collapsible className='space-y-2' key={sectionIndex}>
        
        {/*  <AccordionItem value="best-sellers" className='border rounded-lg'>
           <AccordionTrigger className='text-xl sm:text-2xl px-4 hover:bg-gray-50'>

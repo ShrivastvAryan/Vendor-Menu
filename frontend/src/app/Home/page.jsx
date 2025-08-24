@@ -13,7 +13,7 @@ const Home = () => {
         <span>
         <RotatingText
   texts={['Business', 'Reach', 'Presence']}
-  mainClassName="px-2 sm:px-2  md:px-3 text-6xl bg-[#271E37] text-white font-semibold text-black overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-xl"
+  mainClassName="px-2 sm:px-2  md:px-3 text-6xl bg-[#FFDE21] text-black font-semibold text-black overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-xl"
   staggerFrom={"last"}
   initial={{ y: "100%" }}
   animate={{ y: 0 }}
@@ -30,9 +30,9 @@ const Home = () => {
  </p>
 
 <div className='flex gap-6 mt-6'>
- <div className=' flex flex-row justify-center gap-2 bg-[#271E37] text-white rounded-4xl p-2 px-4'><span className='inline-block'><QrCode/></span><span> Instant QR Menus</span></div>
- <div className=' flex flex-row justify-center gap-2 bg-[#271E37] text-white rounded-4xl p-2  px-4'><span  className='inline-block'><Smartphone/></span><span> Mobile Optimized</span></div>
-  <div className=' flex flex-row justify-center gap-2 bg-[#271E37] text-white rounded-4xl p-2  px-4'><span  className='inline-block'><Zap/></span><span> Easy Updates</span></div>
+ <div className=' flex flex-row justify-center gap-2 bg-[#FFDE21] text-black rounded-4xl p-2 px-4'><span className='inline-block'><QrCode/></span><span> Instant QR Menus</span></div>
+ <div className=' flex flex-row justify-center gap-2 bg-[#FFDE21] text-black rounded-4xl p-2  px-4'><span  className='inline-block'><Smartphone/></span><span> Mobile Optimized</span></div>
+  <div className=' flex flex-row justify-center gap-2 bg-[#FFDE21] text-black rounded-4xl p-2  px-4'><span  className='inline-block'><Zap/></span><span> Easy Updates</span></div>
  </div>
 
  <span className='w-full inline-block h-[2px] bg-black my-8'></span>

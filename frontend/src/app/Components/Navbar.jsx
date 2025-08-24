@@ -6,8 +6,8 @@ const Navbar = () => {
   const items = [
     {
       label: "Your Page",
-      bgColor: "#170D27",
-      textColor: "#fff",
+      bgColor: "#FFDE21",
+      textColor: "#000000",
       links: [
         { label: "Home", href: "/Home", ariaLabel: "Go to Home" },
         { label: "Your Page", href: "/YourPage", ariaLabel: "View Projects" },
@@ -15,8 +15,8 @@ const Navbar = () => {
     },
     {
       label: "Contact Us",
-      bgColor: "#271E37",
-      textColor: "#fff",
+      bgColor: "#FFDE21",
+      textColor: "#000000",
       links: [
         { label: "Email", href: "mailto:someone@example.com", ariaLabel: "Email us" },
         { label: "GitHub", href: "https://github.com/yourusername", ariaLabel: "Visit GitHub" },

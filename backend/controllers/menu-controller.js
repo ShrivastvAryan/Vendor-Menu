@@ -31,7 +31,7 @@ const getMenu = async (req, res, next) => {
     const { userId } = req.auth;
     const { _id } = req.params;
 
-    const menu = await Menu.findOne({ _id, clerkUserId: userId }); // ✅ filter by user
+    const menu = await Menu.findOne({ _id, clerkUserId: userId }); 
 
     if (!menu) {
       return res.status(404).json({ success: false, message: "Menu not found" });

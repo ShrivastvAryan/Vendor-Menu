@@ -48,7 +48,7 @@ const Create = () => {
           <Link href="/MenuForm">
             <button
               type="button"
-              className="mt-4 bg-black text-white p-2 rounded-2xl px-4 cursor-pointer"
+              className="mt-4 bg-[#FFDE21] text-black font-semibold p-2 rounded-2xl px-4  hover:scale-105 hover:shadow-lg hover:brightness-105 transition-all duration-200 cursor-pointer"
             >
               Next
             </button>

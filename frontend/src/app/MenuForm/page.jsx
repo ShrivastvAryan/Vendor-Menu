@@ -220,7 +220,7 @@ transition={Bounce}
       <div className="mt-6 text-center">
         <button
           onClick={handleSubmit}
-          className="bg-black text-white px-6 py-2 rounded-xl hover:cursor-pointer"
+          className="bg-[#FFDE21] text-black font-semibold p-2 rounded-2xl px-4  hover:scale-105 hover:shadow-lg hover:brightness-105 transition-all duration-200 cursor-pointer"
         >
           Save All Data
         </button>

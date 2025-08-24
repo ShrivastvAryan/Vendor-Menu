@@ -8,12 +8,9 @@ const { requireAuth } = require("@clerk/express");
 const app = express();
 const PORT = 5000;
 
-// Middleware
 app.use(express.json());
 app.use(cors());
 
-
-// ✅ Protect only /api/menu routes
 app.use("/api/menu", requireAuth(), menuRoutes);
 
 // MongoDB Connection
