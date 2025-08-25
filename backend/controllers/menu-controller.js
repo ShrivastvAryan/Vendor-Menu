@@ -32,6 +32,7 @@ const getMenu = async (req, res, next) => {
     const { _id } = req.params;
 
     const menu = await Menu.findOne({ _id, clerkUserId: userId }); 
+    console.log(userId, _id);
 
     if (!menu) {
       return res.status(404).json({ success: false, message: "Menu not found" });
@@ -49,6 +50,7 @@ const getPublicMenu = async (req, res, next) => {
     const { _id } = req.params;
 
     const menu = await Menu.findById(_id);
+    console.log(_id);
 
     if (!menu) {
       return res.status(404).json({ success: false, message: "Menu not found" });
@@ -82,6 +84,22 @@ const updateMenu = async (req, res, next) => {
     next(error);
   }
 };
+
+const getMyPage=async (req, res, next) => {
+  try {
+    const { userId } = req.auth; 
+    const restaurant = await Menu.findOne({ clerkUserId: userId });
+      console.log("Clerk userId from token:", userId);
+
+    if (!restaurant) {
+      return res.status(404).json({ error: "Page not found" });
+    }
+
+    res.json({ _id: restaurant._id });
+  } catch (error) {
+    next(error);
+  }
+}
 
 // Delete a Section
 const deleteSection = async (req, res, next) => {
@@ -137,6 +155,7 @@ module.exports = {
   getMenu,
   getPublicMenu,
   updateMenu,
+  getMyPage,
   deleteSection,
   addItemToSection,
 };

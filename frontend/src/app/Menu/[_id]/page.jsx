@@ -86,15 +86,15 @@ const Menu = () => {
                         <div className="flex gap-6 text-center text-sm sm:text-base">
                           <div>
                             <div className="font-semibold text-gray-800">Qtr.</div>
-                            <div className="text-gray-600">{item.prices?.quarter || "-"}</div>
+                            <div className="text-gray-600">₹{item.prices?.quarter || "-"}</div>
                           </div>
                           <div>
                             <div className="font-semibold text-gray-800">Half</div>
-                            <div className="text-gray-600">{item.prices?.half || "-"}</div>
+                            <div className="text-gray-600">₹{item.prices?.half || "-"}</div>
                           </div>
                           <div>
                             <div className="font-semibold text-gray-800">Full</div>
-                            <div className="text-gray-600">{item.prices?.full || "-"}</div>
+                            <div className="text-gray-600">₹{item.prices?.full || "-"}</div>
                           </div>
                         </div>
                       </div>

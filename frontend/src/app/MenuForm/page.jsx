@@ -11,9 +11,11 @@ import useRestaurantStore from "../../../useRestaurantStore";
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 import { useAuth } from "@clerk/clerk-react";
+import { useRouter } from "next/navigation";
 
 const MenuForm = () => {
 
+    const router = useRouter();
   const { getToken } = useAuth();
 
   const {
@@ -44,6 +46,7 @@ const MenuForm = () => {
        theme: "colored",
        transition: Bounce,
        });
+        router.push("/YourPage");
     } catch (err) {
       console.error(err);
       toast.error('Error in saving the Menu', {
@@ -82,6 +85,7 @@ transition={Bounce}
           Create Your Menu
         </h1>
         <p className="text-gray-600 mt-2">Authentic flavors, made with love</p>
+        <p className="text-gray-400 mt-6">*Leave Quarter/Half/Full empty if you don't want to include them in the menu</p>
       </div>
 
       <Accordion type="single" collapsible className="space-y-2">

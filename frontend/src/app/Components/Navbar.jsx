@@ -27,8 +27,8 @@ const Navbar = () => {
 
   return (
     <CardNav
-      logo=''
-      logoAlt="VENDORS"
+      logo='../../../public/name.png'
+      logoAlt="DIGIMENU"
       items={items}
       baseColor="#fff"
       menuColor="#000"

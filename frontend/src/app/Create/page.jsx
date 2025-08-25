@@ -21,6 +21,7 @@ const Create = () => {
             onChange={(e) => setRestaurantField("restaurantName", e.target.value)}
             placeholder="Enter restaurant name"
             className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required={true}
           />
 
           <label className="block mb-2 text-lg font-semibold text-gray-700 mt-3.5">
@@ -32,6 +33,7 @@ const Create = () => {
             onChange={(e) => setRestaurantField("restaurantAddress", e.target.value)}
             placeholder="Enter address"
             className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required={true}
           />
 
           <label className="block mb-2 text-lg font-semibold text-gray-700 mt-3.5">
@@ -43,6 +45,7 @@ const Create = () => {
             onChange={(e) => setRestaurantField("restaurantNumber", e.target.value)}
             placeholder="Enter phone number"
             className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required={true}
           />
 
           <Link href="/MenuForm">

@@ -176,7 +176,7 @@ const CardNav = ({
           </div>
 
           <div className="logo-container flex items-center md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 order-1 md:order-none">
-            <img src={null} alt={logoAlt} className="logo h-[28px]" />
+            <img src='../../../../public/name.png' alt={logoAlt} className="logo h-[28px]" />
           </div>
 
          
