@@ -10,12 +10,11 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import api from '../../../../Api/api';
 import { useParams } from 'next/navigation';
-import { useAuth } from "@clerk/nextjs";
 import QRCodeGenerator from '@/app/Components/QR';
 
 // API function
 const getRestaurantById = async (_id) => {
-  const response = await api.get(`/api/public/${_id}`,);
+  const response = await api.get(`/api/public/${_id}`);
   return response.data;
 };
 
@@ -25,101 +24,98 @@ const Menu = () => {
 
   const { data, error, isLoading } = useQuery({
     queryKey: ["restaurant", restaurantId],
-     queryFn: async () => {
-      return getRestaurantById(restaurantId);
-    },
+    queryFn: async () => getRestaurantById(restaurantId),
     enabled: !!restaurantId,
   });
 
-  console.log("API Response:", data);
+  if (isLoading) return <p className="text-center py-10">Loading...</p>;
+  if (error) return <p className="text-center py-10 text-red-500">Error: {error.message}</p>;
 
-
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  const restaurant = data?.data;
 
   return (
     <>
-    <div className='w-full max-w-4xl mx-auto shadow-lg my-4 p-4 sm:p-6 rounded-2xl bg-white'>
+      <div className="w-full max-w-4xl mx-auto shadow-lg my-6 p-6 sm:p-10 rounded-2xl bg-gradient-to-br from-white to-gray-50 border border-gray-200">
 
-         <div className='mb-6 flex justify-center flex-col'>
-    
-        <h1 className='text-2xl sm:text-3xl font-bold  text-black text-center'>  {data?.data?.restaurantName || "Restaurant Name"}</h1>
-        <h2 className='text-md text-gray-800 text-center mt-3'>{data?.data?.restaurantNumber || "+91 XXXXX XXXXX"} | {data?.data?.restaurantAddress || "Restaurant Address"}</h2>
-        <p className='text-gray-600 text-center mt-2'>Authentic flavors, made with love</p>
+        {/* Header */}
+        <div className="mb-8 text-center">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">
+            {restaurant?.restaurantName || "Restaurant Name"}
+          </h1>
+          <h2 className="text-gray-700 mt-2">
+            {restaurant?.restaurantNumber || "+91 XXXXX XXXXX"} •{" "}
+            {restaurant?.restaurantAddress || "Restaurant Address"}
+          </h2>
+          <p className="text-gray-500 mt-2 italic">
+            Authentic flavors, made with love ❤️
+          </p>
+        </div>
+
+        {/* Sections */}
+        {restaurant?.sections?.map((section, sectionIndex) => (
+          <Accordion 
+            type="single" 
+            collapsible 
+            key={sectionIndex} 
+            className="mb-4 border rounded-xl overflow-hidden shadow-sm"
+          >
+            <AccordionItem value={`section-${sectionIndex}`}>
+              <AccordionTrigger className="text-xl sm:text-2xl font-semibold px-4 py-3 bg-gray-100 hover:bg-gray-200 transition">
+                {section.sectionName}
+              </AccordionTrigger>
+
+              <AccordionContent className="px-4 pb-6 bg-white">
+                <div className="max-h-[400px] overflow-y-auto pr-2 space-y-6">
+                  {section?.items?.map((item, index) => (
+                    <div 
+                      key={index} 
+                      className="pb-4 border-b border-gray-200 last:border-0"
+                    >
+                      {/* Item Header */}
+                      <div className="flex flex-col sm:flex-row justify-between gap-3">
+                        <div className="flex items-center gap-2">
+                          <span className="text-lg font-medium text-gray-900">{item.name}</span>
+                          <span
+                            className={`h-3 w-3 rounded-full ${
+                              item.type === 'Veg' ? "bg-green-600" : "bg-red-600"
+                            }`}
+                          ></span>
+                        </div>
+
+                        {/* Prices */}
+                        <div className="flex gap-6 text-center text-sm sm:text-base">
+                          <div>
+                            <div className="font-semibold text-gray-800">Qtr.</div>
+                            <div className="text-gray-600">{item.prices?.quarter || "-"}</div>
+                          </div>
+                          <div>
+                            <div className="font-semibold text-gray-800">Half</div>
+                            <div className="text-gray-600">{item.prices?.half || "-"}</div>
+                          </div>
+                          <div>
+                            <div className="font-semibold text-gray-800">Full</div>
+                            <div className="text-gray-600">{item.prices?.full || "-"}</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Description */}
+                      {item.description && (
+                        <p className="text-gray-500 text-sm mt-2">
+                          {item.description}
+                        </p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        ))}
       </div>
 
-      {data?.data?.sections?.map((section,sectionIndex)=>(
-      
-      <Accordion type="single" collapsible className='space-y-2' key={sectionIndex}>
-       
-       {/*  <AccordionItem value="best-sellers" className='border rounded-lg'>
-          <AccordionTrigger className='text-xl sm:text-2xl px-4 hover:bg-gray-50'>
-            Best Sellers
-          </AccordionTrigger>
-          <AccordionContent className='px-4 pb-4'>
-            <div className='max-h-96 overflow-y-auto pr-2'>
-              {menu.bestSellers?.map((item, index) => (
-                <MenuItem key={index} item={item} />
-              ))}
-            </div>
-          </AccordionContent>
-        </AccordionItem> */}
-
-        <AccordionItem value="all" className='border rounded-lg mb-2'>
-         <div key={sectionIndex}>
-          <AccordionTrigger className='text-xl sm:text-2xl px-4 hover:bg-gray-50'>
-            {section.sectionName}
-          </AccordionTrigger>
-          <AccordionContent className='px-4 pb-4'>
-            <div className='max-h-96 overflow-y-auto pr-2'>
-              
-               {section?.items?.map((item, index) => (
-        <div key={index} className="mb-4 last:mb-0">
-          <div className="flex flex-col sm:flex-row gap-2 sm:gap-0">
-            <div className="flex flex-row gap-2 w-full sm:w-[60%]">
-              <span className="text-xl">{item.name}</span>
-              <span
-                className={`h-3 w-3 rounded-full ${
-                  item.type==='Veg' ? "bg-green-600" : "bg-red-600"
-                } inline-block flex-shrink-0 mt-2`}
-              ></span>
-            </div>
-
-            <div className="flex w-full sm:w-[40%] gap-3 sm:gap-6 justify-start sm:justify-end text-sm sm:text-base mt-2 lg:mt-0">
-              <div className="text-center">
-                <div className="font-semibold text-gray-800">Qtr.</div>
-                <div className="text-gray-600">{item.prices?.quarter}</div>
-              </div>
-              <div className="text-center">
-                <div className="font-semibold text-gray-800">Half</div>
-                <div className="text-gray-600">{item.prices?.half}</div>
-              </div>
-              <div className="text-center">
-                <div className="font-semibold text-gray-800">Full</div>
-                <div className="text-gray-600">{item.prices?.full}</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="text-gray-600 text-sm w-[60%] sm:text-[15px] mt-2 lg:mt-0 leading-relaxed">
-            {item.description}
-          </div>
-          <div className="w-full h-[1px] bg-gray-200 my-3"></div>
-        </div>
-      ))}
-
-            </div>
-          </AccordionContent>
-          </div>
-        </AccordionItem>
-
-      </Accordion>
-      ))}
-    
-    </div>
-    
-    <QRCodeGenerator/>
-    
+      {/* Floating QR Button */}
+      <QRCodeGenerator _id={restaurantId} />
     </>
   )
 }

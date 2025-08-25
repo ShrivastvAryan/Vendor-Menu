@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={ubuntu.className}>
+        <body className=' bg-gradient-to-br from-gray-50 to-white {ubuntu.className}'>
           <Providers>
           <Navbar />
           {children}
