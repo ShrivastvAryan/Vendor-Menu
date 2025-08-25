@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useAuth } from "@clerk/clerk-react";
 
 // Create Axios instance
 const api = axios.create({

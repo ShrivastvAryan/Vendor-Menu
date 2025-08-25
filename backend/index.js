@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const menuRoutes = require("./routers/menu-router"); // import routes
 const cors = require("cors");
 const { requireAuth } = require("@clerk/express");
+const { getPublicMenu } = require("./controllers/menu-controller");
 
 const app = express();
 const PORT = 5000;
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/api/menu", requireAuth(), menuRoutes);
+app.get("/api/public/:_id", getPublicMenu);
 
 // MongoDB Connection
 mongoose

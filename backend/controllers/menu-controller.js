@@ -43,6 +43,23 @@ const getMenu = async (req, res, next) => {
   }
 };
 
+// Public Get Menu (anyone can view by ID)
+const getPublicMenu = async (req, res, next) => {
+  try {
+    const { _id } = req.params;
+
+    const menu = await Menu.findById(_id);
+
+    if (!menu) {
+      return res.status(404).json({ success: false, message: "Menu not found" });
+    }
+
+    res.status(200).json({ success: true, data: menu });
+  } catch (error) {
+    next(error);
+  }
+};
+
 // Update Menu (only if it belongs to user)
 const updateMenu = async (req, res, next) => {
   try {
@@ -118,6 +135,7 @@ const addItemToSection = async (req, res, next) => {
 module.exports = {
   createMenu,
   getMenu,
+  getPublicMenu,
   updateMenu,
   deleteSection,
   addItemToSection,

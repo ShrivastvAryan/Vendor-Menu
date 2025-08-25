@@ -177,8 +177,8 @@ const CardNav = ({
          
           <button
             type="button"
-            className="card-nav-cta-button flex items-center justify-center border-0 rounded-[calc(0.75rem-0.2rem)] px-2 lg:px-4 h-full font-medium cursor-pointer transition-colors duration-300"
-            style={{ backgroundColor: buttonBgColor, color: buttonTextColor }}
+            className="card-nav-cta-button bg-[#FFDE21] text-black flex items-center justify-center border-0 rounded-[calc(0.75rem-0.2rem)] px-2 lg:px-4 h-full font-medium cursor-pointer transition-colors duration-300"
+           
           ><Link href='/Home'>
             Home
             </Link>
