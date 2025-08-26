@@ -1,6 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react';
-import { QrCode, Smartphone, Menu, Users, Zap, ArrowRight, Star, CheckCircle } from 'lucide-react';
+import { QrCode, Smartphone, Users, Zap, ArrowRight, Star, CheckCircle, ChevronDown } from 'lucide-react';
+import Link from 'next/link';
 
 const RotatingText = ({ texts }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -62,10 +63,12 @@ const Home = () => {
 
           {/* CTA Button */}
           <div className='mt-12'>
-            <button className='group bg-gray-900 text-white px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-300 hover:bg-gray-800 hover:scale-105 hover:shadow-xl flex items-center gap-3'>
+            <Link href='/YourPage'>
+            <button className='group bg-gray-900 text-white px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-300 hover:bg-gray-800 hover:scale-105 hover:shadow-xl flex items-center gap-3 cursor-pointer'>
               Get Started Free
               <ArrowRight className='w-5 h-5 group-hover:translate-x-1 transition-transform duration-300' />
             </button>
+            </Link>
           </div>
         </div>
 
@@ -102,23 +105,18 @@ const Home = () => {
                       <span className='text-2xl'>🍛</span>
                     </div>
                     <h3 className="text-2xl font-bold text-gray-900 mb-2">Spice Garden</h3>
-                    <p className="text-gray-600 text-sm mb-1">📍 123 Food Street, Delhi</p>
-                    <p className="text-gray-600 text-sm">📞 +91 98765 43210</p>
-                    <div className='flex justify-center mt-3 gap-1'>
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className='w-4 h-4 text-yellow-400 fill-current' />
-                      ))}
-                      <span className='text-xs text-gray-600 ml-2'>4.8 (124 reviews)</span>
-                    </div>
+                    <p className="text-gray-600 text-sm mb-1"> 123 Food Street, Delhi</p>
+                    <p className="text-gray-600 text-sm"> +91 98765 43210</p>
+                    
                   </div>
 
                   {/* Menu Categories */}
                   <div className="space-y-3">
                     {[
-                      { name: 'Best Sellers', icon: '🔥', count: '8 items' },
-                      { name: 'Main Course', icon: '🍽️', count: '12 items' },
-                      { name: 'Bread & Rice', icon: '🍚', count: '6 items' },
-                      { name: 'Beverages', icon: '🥤', count: '10 items' }
+                      { name: 'Best Sellers', count: '8 items' },
+                      { name: 'Main Course', count: '12 items' },
+                      { name: 'Bread & Rice', count: '6 items' },
+                      { name: 'Beverages', count: '10 items' }
                     ].map((category, index) => (
                       <div key={index} className="bg-white border border-gray-100 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all duration-300 hover:scale-102 group cursor-pointer">
                         <div className="flex justify-between items-center">
@@ -129,7 +127,7 @@ const Home = () => {
                               <p className='text-xs text-gray-500'>{category.count}</p>
                             </div>
                           </div>
-                          <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-[#FFDE21] group-hover:translate-x-1 transition-all duration-300" />
+                          <ChevronDown className="w-5 h-5 text-gray-400 group-hover:text-[#FFDE21] group-hover:translate-x-1 transition-all duration-300" />
                         </div>
                       </div>
                     ))}
@@ -137,7 +135,7 @@ const Home = () => {
 
                   {/* Floating QR Code */}
                   <div className="absolute bottom-6 right-6">
-                    <div className="bg-[#FFDE21] p-3 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 cursor-pointer group">
+                    <div className="bg-white p-3 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 cursor-pointer group">
                       <QrCode className="w-8 h-8 text-black group-hover:rotate-12 transition-transform duration-300" />
                     </div>
                   </div>

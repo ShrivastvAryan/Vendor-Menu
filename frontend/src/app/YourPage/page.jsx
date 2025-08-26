@@ -15,6 +15,7 @@ import { Progress } from '@/components/ui/progress'
 import api from '../../../Api/api'
 import { useState, useEffect } from 'react'
 import { useAuth } from "@clerk/nextjs";
+import LogoLoader from '../Components/Loader'
 
 const Create = () => {
    const [progress, setProgress] = useState(50)
@@ -53,9 +54,7 @@ const Create = () => {
 
   if (!isLoaded) {
     return(
-      <div className='w-screen h-screen flex items-center justify-center'>
-      <Progress value={progress} className="w-[50%]" />
-      </div>
+      <LogoLoader/>
     ) 
   }
 
