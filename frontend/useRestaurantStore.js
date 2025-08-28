@@ -56,10 +56,22 @@ const useRestaurantStore = create((set, get) => ({
   },
 
   updateItemField: (sectionIndex, itemIndex, field, value) => {
-    const sections = [...get().sections];
-    sections[sectionIndex].items[itemIndex][field] = value;
-    set({ sections });
-  },
+  const sections = [...get().sections];
+  const item = sections[sectionIndex].items[itemIndex];
+
+  // Check if the field is a price (quarter/half/full)
+  if (["quarter", "half", "full"].includes(field)) {
+    item.prices = {
+      ...item.prices,
+      [field]:(value),
+    };
+  } else {
+    item[field] =(value);
+  }
+
+  sections[sectionIndex].items[itemIndex] = item;
+  set({ sections });
+},
 
   deleteItem: (sectionIndex, itemIndex) => {
     const sections = [...get().sections];

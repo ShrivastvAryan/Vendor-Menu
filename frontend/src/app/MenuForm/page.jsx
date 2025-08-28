@@ -124,7 +124,7 @@ transition={Bounce}
                   >
                     {/* Item Name + Food Type */}
                     <div className="flex flex-col sm:flex-row gap-3 sm:gap-6">
-                      <div className="flex flex-row items-center gap-2 w-full sm:w-[60%] ml-2">
+                      <div className="flex flex-col md:flex-row items-center gap-2 w-full sm:w-[60%] ml-2">
                         <input
                           type="text"
                           className="flex-1 border border-gray-300 rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -152,17 +152,17 @@ transition={Bounce}
                           <div key={size} className="flex flex-col items-center w-1/3">
                             <div className="font-semibold text-gray-800">
                               {size === "quarter"
-                                ? "quarter."
+                                ? "quarter"
                                 : size.charAt(0).toUpperCase() + size.slice(1)}
                             </div>
-                            <input
-                              type="text"
-                              className="w-full border border-gray-300 rounded-xl p-2 text-center focus:outline-none focus:ring-2 focus:ring-blue-500"
-                              placeholder={`${size} Price`}
-                              value={item[size]??''}
-                              onChange={(e) =>
-                                updateItemField(sectionIndex, itemIndex, size, e.target.value)
-                              }
+                           <input
+                           type="text"
+                           className="w-full border border-gray-300 rounded-xl p-2 text-center focus:outline-none focus:ring-2 focus:ring-blue-500"
+                           placeholder={`${size} Price`}
+                           value={item.prices[size] ?? ""}
+                           onChange={(e) =>
+                           updateItemField(sectionIndex, itemIndex, size, e.target.value)
+                            }
                             />
                           </div>
                         ))}

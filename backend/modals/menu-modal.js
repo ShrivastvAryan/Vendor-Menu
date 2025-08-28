@@ -5,9 +5,9 @@ const ItemSchema = new mongoose.Schema({
   type: { type: String, enum: ["Veg", "Non-Veg"], default: "Veg" },
   description: { type: String },
   prices: {
-    quarter: { type: Number, default: 0 },
-    half: { type: Number, default: 0 },
-    full: { type: Number, default: 0 },
+    quarter: { type: String, default:'-'},
+    half: { type: String, default:'-'},
+    full: { type: String, default:'-'},
   },
 });
 
@@ -20,7 +20,7 @@ const MenuSchema = new mongoose.Schema(
   {
     restaurantName:{type:String,required:true},
     restaurantAddress:{type:String,required:true},
-    restaurantNumber:{type:Number,required:true},
+    restaurantNumber:{type:String,required:true},
     restaurantId: { type: mongoose.Schema.Types.ObjectId, ref: "Restaurant" }, 
 
     clerkUserId: { type: String, required: true },

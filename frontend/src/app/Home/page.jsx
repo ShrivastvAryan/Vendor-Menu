@@ -2,23 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { QrCode, Smartphone, Users, Zap, ArrowRight, Star, CheckCircle, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
-
-const RotatingText = ({ texts }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % texts.length);
-    }, 2000);
-    return () => clearInterval(interval);
-  }, [texts.length]);
-
-  return (
-    <span className="relative inline-block px-3 md:px-4 text-5xl md:text-6xl bg-[#FFDE21] text-black font-bold rounded-2xl py-2 transition-all duration-500 hover:scale-105 hover:shadow-lg">
-      {texts[currentIndex]}
-    </span>
-  );
-};
+import RotatingText from '@/blocks/Components/TextAnimation/TextAnimation';
 
 const Home = () => {
   return (
@@ -30,11 +14,22 @@ const Home = () => {
           
           {/* Main Heading */}
           <div className='space-y-4'>
-            <h1 className='font-bold text-5xl md:text-7xl lg:text-8xl text-gray-900 leading-tight'>
+            <h1 className='font-bold text-6xl md:text-7xl lg:text-8xl text-gray-900 leading-tight'>
               Grow Your
             </h1>
             <div className='flex items-center'>
-              <RotatingText texts={['Business', 'Reach', 'Presence']} />
+               <RotatingText
+               texts={['Business', 'Reach', 'Menu']}
+               mainClassName="px-2 sm:px-2 md:px-3 bg-[#FFDE21] text-6xl md:text-7xl font-bold text-black overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
+               staggerFrom={"last"}
+               initial={{ y: "100%" }}
+               animate={{ y: 0 }}
+               exit={{ y: "-120%" }}
+               staggerDuration={0.025}
+               splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
+               transition={{ type: "spring", damping: 30, stiffness: 400 }}
+               rotationInterval={2000}
+               />
             </div>
           </div>
 

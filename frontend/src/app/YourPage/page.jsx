@@ -26,10 +26,31 @@ const Create = () => {
     const timer = setTimeout(() => setProgress(66), 500)
     return () => clearTimeout(timer)
   }, [])
-
-
+  
   const { isLoaded, user } = useUser();
   const [pageId, setPageId] = useState(null);
+
+const handleDeletePage = async () => {
+  try {
+    const token = await getToken();
+    await api.delete(`/api/restaurant/mypage`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    console.log("Deleted page from backend.");
+    setPageId(null);
+  } catch (err) {
+    console.error("Error deleting page:", err);
+  }
+};
+
+useEffect(() => {
+  if (isLoaded && !user) {
+    // just clear local state when logged out
+    setPageId(null);
+    console.log("User logged out, cleared pageId from state.");
+  }
+}, [isLoaded, user]);
+
 
  useEffect(() => {
   if (isLoaded && user) {
@@ -93,6 +114,7 @@ const Create = () => {
     </Link>*/}
 
       {pageId ? (
+        <>
           <Link href={`/Menu/${pageId}`}>
             <div className="px-6 py-4 text-lg sm:text-xl font-semibold rounded-xl 
               bg-[#FFDE21] text-black shadow-md 
@@ -100,6 +122,13 @@ const Create = () => {
               Your Page
             </div>
           </Link>
+           <div className="px-6 py-4 text-lg sm:text-xl font-semibold rounded-xl 
+              bg-[#FFDE21] text-black shadow-md 
+              hover:scale-105 hover:shadow-lg hover:brightness-105 transition-all duration-200 cursor-pointer"
+              onClick={handleDeletePage}>
+              Delete Page
+            </div>
+            </>
         ) : (
           <Link href="/Create">
             <div className="px-6 py-4 text-lg sm:text-xl font-semibold rounded-xl 

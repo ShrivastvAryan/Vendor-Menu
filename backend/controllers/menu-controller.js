@@ -92,7 +92,7 @@ const getMyPage=async (req, res, next) => {
       console.log("Clerk userId from token:", userId);
 
     if (!restaurant) {
-      return res.status(404).json({ error: "Page not found" });
+      return res.status(404).json({ error: "Page not found" ,userId,restaurant});
     }
 
     res.json({ _id: restaurant._id });
@@ -122,6 +122,28 @@ const deleteSection = async (req, res, next) => {
     next(error);
   }
 };
+
+//Delete Menu
+
+const deleteMenu=async(req,res,next)=>{
+  try {
+    const { userId } = req.auth;
+    const { _id } = req.params;
+
+    const menu = await Menu.findOneAndDelete(
+      { _id, clerkUserId: userId } // ✅ restrict
+    );
+
+    if (!menu) {
+      return res.status(404).json({ success: false, message: "Menu not found or unauthorized" });
+    }
+
+    res.status(200).json({ success: true, message: "Menu deleted successfully" });
+  } catch (error) {
+    next(error);
+    
+  }
+}
 
 // Add Item to a Section
 const addItemToSection = async (req, res, next) => {
@@ -155,6 +177,7 @@ module.exports = {
   getMenu,
   getPublicMenu,
   updateMenu,
+  deleteMenu,
   getMyPage,
   deleteSection,
   addItemToSection,

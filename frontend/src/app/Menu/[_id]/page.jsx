@@ -24,11 +24,18 @@ const Menu = () => {
 
   const { data, error, isLoading } = useQuery({
     queryKey: ["restaurant", restaurantId],
-    queryFn: async () => getRestaurantById(restaurantId),
+    queryFn: async () => {
+    
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    return getRestaurantById(restaurantId);
+  },
     enabled: !!restaurantId,
+
+    staleTime: 1000 * 60 * 5,  
+    cacheTime: 1000 * 60 * 10, 
   });
 
-  if (isLoading) return <p className="text-center py-10">Loading...</p>;
+  if (isLoading) return <p className="text-center py-10"></p>;
   if (error) return <p className="text-center py-10 text-red-500">Error: {error.message}</p>;
 
   const restaurant = data?.data;
