@@ -6,7 +6,7 @@ const QRCodeGenerator = ({ _id }) => {
   const [isLarge, setIsLarge] = useState(false);
   const qrRef = useRef(null);
 
-  const pageUrl = `https://vendor-menu.onrender.com/Menu/${_id}`;
+  const pageUrl = `https://digimenu-smoky.vercel.app//Menu/${_id}`;
 
 
   const handleDownload = () => {

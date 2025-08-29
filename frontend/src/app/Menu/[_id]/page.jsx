@@ -50,8 +50,8 @@ const Menu = () => {
             {restaurant?.restaurantName || "Restaurant Name"}
           </h1>
           <h2 className="text-gray-700 mt-2">
-            {restaurant?.restaurantNumber || "+91 XXXXX XXXXX"} •{" "}
-            {restaurant?.restaurantAddress || "Restaurant Address"}
+            {restaurant?.restaurantAddress || "Restaurant Address"} •{" "}
+            {restaurant?.restaurantNumber || "+91 XXXXX XXXXX"}
           </h2>
           <p className="text-gray-500 mt-2 italic">
             Authentic flavors, made with love ❤️
