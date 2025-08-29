@@ -68,7 +68,7 @@
    
    For development with auto-restart:
    ```bash
-   nodemon index.js
+   node index.js
    ```
 
 The backend will run on `http://localhost:5000`
