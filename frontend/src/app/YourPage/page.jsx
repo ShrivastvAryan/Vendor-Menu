@@ -17,6 +17,7 @@ import { useAuth } from "@clerk/nextjs";
 import LogoLoader from '../Components/Loader'
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
+import SmallLoader from '../Components/SmallLoader'
 
 const Create = () => {
    const [progress, setProgress] = useState(50)
@@ -30,12 +31,14 @@ const Create = () => {
   
   const { isLoaded, user } = useUser();
   const [pageId, setPageId] = useState(null);
+  const [loadingPage, setLoadingPage] = useState(true);
 
 
 useEffect(() => {
   if (isLoaded && !user) {
     // just clear local state when logged out
     setPageId(null);
+     setLoadingPage(false);
     console.log("User logged out, cleared pageId from state.");
   }
 }, [isLoaded, user]);
@@ -45,6 +48,7 @@ useEffect(() => {
   if (isLoaded && user) {
     const fetchPage = async () => {
       try {
+        setLoadingPage(true);
         const token = await getToken();
         const res = await api.get("/api/restaurant/mypage", {
           headers: { Authorization: `Bearer ${token}` }
@@ -54,6 +58,9 @@ useEffect(() => {
       } catch (err) {
         console.error("No page found for this user.", err);
         setPageId(null);
+      }
+      finally {
+        setLoadingPage(false);
       }
     };
 
@@ -134,31 +141,35 @@ const handleDeletePage = async (pageId) => {
       </div>
     </Link>*/}
 
-      {pageId ? (
-        <>
-          <Link href={`/Menu/${pageId}`}>
-            <div className="px-6 py-4 text-lg sm:text-xl font-semibold rounded-xl 
-              bg-[#FFDE21] text-black shadow-md 
-              hover:scale-105 hover:shadow-lg hover:brightness-105 transition-all duration-200 cursor-pointer">
-              Your Page
-            </div>
-          </Link>
-           <div className="px-6 py-4 text-lg sm:text-xl font-semibold rounded-xl 
-              bg-[#FFDE21] text-black shadow-md 
-              hover:scale-105 hover:shadow-lg hover:brightness-105 transition-all duration-200 cursor-pointer"
-             onClick={() => handleDeletePage(pageId)}>
-              Delete Page
-            </div>
+       {loadingPage ? ( 
+            <div className="text-gray-500 text-lg"><SmallLoader className='w-12 h-12'/></div>
+          ) : pageId ? (
+         
+            <>
+              
+              <Link href={`/Menu/${pageId}`}>
+                <div className="px-6 py-4 text-lg sm:text-xl font-semibold rounded-xl 
+                  bg-[#FFDE21] text-black shadow-md 
+                  hover:scale-105 hover:shadow-lg hover:brightness-105 transition-all duration-200 cursor-pointer">
+                  Your Page
+                </div>
+              </Link>
+              <div className="px-6 py-4 text-lg sm:text-xl font-semibold rounded-xl 
+                bg-[#FFDE21] text-black shadow-md 
+                hover:scale-105 hover:shadow-lg hover:brightness-105 transition-all duration-200 cursor-pointer"
+                onClick={() => handleDeletePage(pageId)}>
+                Delete Page
+              </div>
             </>
-        ) : (
-          <Link href="/Create">
-            <div className="px-6 py-4 text-lg sm:text-xl font-semibold rounded-xl 
-              bg-[#FFDE21] text-black shadow-md 
-              hover:scale-105 hover:shadow-lg hover:brightness-105 transition-all duration-200 cursor-pointer">
-              Create Page
-            </div>
-          </Link>
-        )}
+          ) : (
+            <Link href="/Create">
+              <div className="px-6 py-4 text-lg sm:text-xl font-semibold rounded-xl 
+                bg-[#FFDE21] text-black shadow-md 
+                hover:scale-105 hover:shadow-lg hover:brightness-105 transition-all duration-200 cursor-pointer">
+                Create Page
+              </div>
+            </Link>
+          )}
   </div>
   <p className='text-gray-400 text-center mt-6'>*Edit feature will be available soon</p>
 </div>
