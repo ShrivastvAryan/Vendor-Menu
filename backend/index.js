@@ -19,6 +19,10 @@ app.get("/api/public/:_id", getPublicMenu);
 app.get("/api/restaurant/mypage", requireAuth(), getMyPage);
 app.delete("/api/restaurant/mypage/:_id", requireAuth(),deleteMenu);
 
+app.get("/healthcheck", (req, res) => {
+  res.status(200).send("Server is healthy");
+});
+
 // MongoDB Connection
 mongoose
   .connect(process.env.NEXT_API_MONGODB_URI, {
