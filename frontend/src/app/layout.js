@@ -1,5 +1,4 @@
 import "./globals.css";
-import Navbar from "./Components/Navbar";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Ubuntu } from "next/font/google";
 import Providers from "../../Provider";
@@ -21,7 +20,6 @@ export default function RootLayout({ children }) {
       <html lang="en">
         <body className=' bg-gradient-to-br from-gray-50 to-white {ubuntu.className}'>
           <Providers>
-          <Navbar />
           {children}
            <GlobalLoader />
           </Providers>

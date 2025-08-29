@@ -17,7 +17,7 @@ app.use(cors());
 app.use("/api/menu", requireAuth(), menuRoutes);
 app.get("/api/public/:_id", getPublicMenu);
 app.get("/api/restaurant/mypage", requireAuth(), getMyPage);
-app.delete("/api/restaurant/mypage", requireAuth(),deleteMenu);
+app.delete("/api/restaurant/mypage/:_id", requireAuth(),deleteMenu);
 
 // MongoDB Connection
 mongoose

@@ -18,9 +18,9 @@ const Navbar = () => {
       bgColor: "#FFDE21",
       textColor: "#000000",
       links: [
-        { label: "Email", href: "mailto:someone@example.com", ariaLabel: "Email us" },
-        { label: "GitHub", href: "https://github.com/yourusername", ariaLabel: "Visit GitHub" },
-        { label: "LinkedIn", href: "https://linkedin.com/in/yourprofile", ariaLabel: "Visit LinkedIn" },
+        { label: "Email", href: "mailto:reachtoaryan29@gmail.com", ariaLabel: "Email us" },
+        { label: "GitHub", href: "https://github.com/ShrivastvAryan?tab=overview&from=2025-08-01&to=2025-08-29", ariaLabel: "Visit GitHub" },
+        { label: "LinkedIn", href: "https://www.linkedin.com/in/aryanshrivastava290605/", ariaLabel: "Visit LinkedIn" },
       ]
     }
   ];

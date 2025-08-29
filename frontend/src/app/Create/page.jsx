@@ -2,11 +2,14 @@
 import React from "react";
 import Link from "next/link";
 import useRestaurantStore from "../../../useRestaurantStore";
+import Navbar from "../Components/Navbar";
 
 const Create = () => {
   const { restaurant, setRestaurantField } = useRestaurantStore();
 
   return (
+    <>
+    <Navbar/>
     <div>
       <p className="text-4xl font-semibold text-center">Create Your Page</p>
 
@@ -59,6 +62,7 @@ const Create = () => {
         </form>
       </div>
     </div>
+    </>
   );
 };
 

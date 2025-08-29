@@ -12,6 +12,7 @@ import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 import { useAuth } from "@clerk/clerk-react";
 import { useRouter } from "next/navigation";
+import Navbar from "../Components/Navbar";
 
 const MenuForm = () => {
 
@@ -65,6 +66,7 @@ const MenuForm = () => {
 
   return (
     <>
+       <Navbar />
      <ToastContainer
 position="top-center"
 autoClose={5000}

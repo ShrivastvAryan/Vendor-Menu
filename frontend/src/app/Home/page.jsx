@@ -3,9 +3,12 @@ import React, { useState, useEffect } from 'react';
 import { QrCode, Smartphone, Users, Zap, ArrowRight, Star, CheckCircle, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import RotatingText from '@/blocks/Components/TextAnimation/TextAnimation';
+import Navbar from '../Components/Navbar';
 
 const Home = () => {
   return (
+    <>
+    <Navbar/>
     <div className='min-h-screen bg-gradient-to-br from-gray-50 to-white'>
       <div className='flex flex-col lg:flex-row items-center justify-between max-w-7xl mx-auto px-6 py-12 lg:py-20'>
         
@@ -147,6 +150,7 @@ const Home = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

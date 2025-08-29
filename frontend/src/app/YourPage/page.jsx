@@ -7,15 +7,16 @@ import {
   SignedOut,
   UserButton,
 } from '@clerk/nextjs'
-import Menu from '../Menu/[_id]/page'
 import Link from 'next/link'
 import TextType from '@/blocks/Components/TextType/TextType'
 import { useUser } from "@clerk/nextjs";
-import { Progress } from '@/components/ui/progress'
+import Navbar from '../Components/Navbar'
 import api from '../../../Api/api'
 import { useState, useEffect } from 'react'
 import { useAuth } from "@clerk/nextjs";
 import LogoLoader from '../Components/Loader'
+import { ToastContainer, toast, Bounce } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; 
 
 const Create = () => {
    const [progress, setProgress] = useState(50)
@@ -30,18 +31,6 @@ const Create = () => {
   const { isLoaded, user } = useUser();
   const [pageId, setPageId] = useState(null);
 
-const handleDeletePage = async () => {
-  try {
-    const token = await getToken();
-    await api.delete(`/api/restaurant/mypage`, {
-      headers: { Authorization: `Bearer ${token}` }
-    });
-    console.log("Deleted page from backend.");
-    setPageId(null);
-  } catch (err) {
-    console.error("Error deleting page:", err);
-  }
-};
 
 useEffect(() => {
   if (isLoaded && !user) {
@@ -71,6 +60,22 @@ useEffect(() => {
     fetchPage();
   }
 }, [isLoaded, user]);
+
+const handleDeletePage = async (pageId) => {
+  try {
+    const token = await getToken();
+    await api.delete(`/api/restaurant/mypage/${pageId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    console.log("Deleted page from backend.");
+    toast.success("Menu Deleted Successfully", { transition: Bounce });
+    setPageId(null);
+  } catch (err) {
+    console.error("Error deleting page:", err);
+    toast.error("Error in deleting the Menu", { transition: Bounce });
+  }
+};
   
 
   if (!isLoaded) {
@@ -80,7 +85,9 @@ useEffect(() => {
   }
 
   return (
-    <div>
+    <div> 
+       
+         <Navbar />
 
         <header className="flex justify-end items-center p-4 gap-4 h-16">
         <SignedOut>
@@ -89,6 +96,20 @@ useEffect(() => {
         </SignedOut>
 
        </header>
+
+       <ToastContainer
+       position="top-center"
+       autoClose={5000}
+       hideProgressBar={false}
+       newestOnTop={false}
+       closeOnClick={false}
+       rtl={false}
+       pauseOnFocusLoss
+       draggable
+       pauseOnHover
+       theme="colored"
+       transition={Bounce}
+       />
 
 
         <div className="w-full max-w-2xl mx-auto shadow-xl my-8 p-6 sm:p-10 rounded-2xl bg-gradient-to-br from-white to-gray-50">
@@ -125,7 +146,7 @@ useEffect(() => {
            <div className="px-6 py-4 text-lg sm:text-xl font-semibold rounded-xl 
               bg-[#FFDE21] text-black shadow-md 
               hover:scale-105 hover:shadow-lg hover:brightness-105 transition-all duration-200 cursor-pointer"
-              onClick={handleDeletePage}>
+             onClick={() => handleDeletePage(pageId)}>
               Delete Page
             </div>
             </>
