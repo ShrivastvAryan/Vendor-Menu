@@ -74,7 +74,6 @@ const Home = () => {
         <div className='lg:w-[50%] flex justify-center lg:justify-end'>
           <div className='relative'>
             
-            {/* Decorative Elements */}
             <div className='absolute -top-4 -left-4 w-20 h-20 bg-[#FFDE21] rounded-full opacity-20 animate-pulse'></div>
             <div className='absolute -bottom-8 -right-8 w-32 h-32 bg-yellow-200 rounded-full opacity-30 animate-pulse delay-1000'></div>
             
@@ -139,11 +138,10 @@ const Home = () => {
                   </div>
                 </div>
 
-                {/* Screen Reflection */}
+             
                 <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent pointer-events-none rounded-[2.5rem]"></div>
               </div>
-
-              {/* Home Indicator */}
+              
               <div className='absolute bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gray-600 rounded-full'></div>
             </div>
           </div>

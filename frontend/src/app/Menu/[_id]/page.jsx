@@ -12,7 +12,7 @@ import api from '../../../../Api/api';
 import { useParams } from 'next/navigation';
 import QRCodeGenerator from '@/app/Components/QR';
 
-// API function
+
 const getRestaurantById = async (_id) => {
   const response = await api.get(`/api/public/${_id}`);
   return response.data;

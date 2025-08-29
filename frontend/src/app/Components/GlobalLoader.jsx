@@ -3,7 +3,7 @@ import { useIsFetching } from "@tanstack/react-query";
 import LogoLoader from "./Loader";
 
 const GlobalLoader = () => {
-  const isFetching = useIsFetching(); // number of active queries
+  const isFetching = useIsFetching();
 
   if (isFetching) {
     return (

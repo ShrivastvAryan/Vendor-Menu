@@ -1,15 +1,48 @@
 'use client'
 import React from "react";
-import Link from "next/link";
 import useRestaurantStore from "../../../useRestaurantStore";
 import Navbar from "../Components/Navbar";
+import { useRouter } from "next/navigation";
+import { ToastContainer, toast, Bounce } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; 
 
 const Create = () => {
   const { restaurant, setRestaurantField } = useRestaurantStore();
+  const router = useRouter();
+
+    const handleNext = (e) => {
+    e.preventDefault();
+
+    if (
+      restaurant.restaurantName.trim() === "" ||
+      restaurant.restaurantAddress.trim() === "" ||
+      restaurant.restaurantNumber.trim() === ""
+    ) {
+        toast.error("Please fill all inputs", { transition: Bounce });
+      return;
+    }
+
+    router.push("/MenuForm");
+  };
+
 
   return (
     <>
     <Navbar/>
+
+       <ToastContainer
+           position="top-center"
+           autoClose={5000}
+           hideProgressBar={false}
+           newestOnTop={false}
+           closeOnClick={false}
+           rtl={false}
+           pauseOnFocusLoss
+           draggable
+           pauseOnHover
+           theme="colored"
+           transition={Bounce}
+           />
     <div>
       <p className="text-4xl font-semibold text-center">Create Your Page</p>
 
@@ -51,14 +84,15 @@ const Create = () => {
             required={true}
           />
 
-          <Link href="/MenuForm">
+          
             <button
               type="button"
+              onClick={handleNext}
               className="mt-4 bg-[#FFDE21] text-black font-semibold p-2 rounded-2xl px-4  hover:scale-105 hover:shadow-lg hover:brightness-105 transition-all duration-200 cursor-pointer"
             >
               Next
             </button>
-          </Link>
+         
         </form>
       </div>
     </div>

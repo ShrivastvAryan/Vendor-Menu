@@ -3,7 +3,7 @@ const Menu = require('../modals/menu-modal');
 // Create a new Menu
 const createMenu = async (req, res, next) => {
   try {
-    const { userId } = req.auth; // Clerk middleware gives this
+    const { userId } = req.auth; 
     if (!userId) {
       return res.status(401).json({ success: false, message: "Unauthorized" });
     }
@@ -15,7 +15,7 @@ const createMenu = async (req, res, next) => {
       restaurantAddress,
       restaurantNumber,
       sections,
-      clerkUserId: userId, // ✅ attach userId automatically
+      clerkUserId: userId,
     });
 
     await menu.save();
@@ -70,7 +70,7 @@ const updateMenu = async (req, res, next) => {
     const { sections } = req.body;
 
     const menu = await Menu.findOneAndUpdate(
-      { _id, clerkUserId: userId }, // ✅ restrict to logged-in user
+      { _id, clerkUserId: userId }, 
       { sections },
       { new: true }
     );
@@ -108,7 +108,7 @@ const deleteSection = async (req, res, next) => {
     const { _id, sectionId } = req.params;
 
     const menu = await Menu.findOneAndUpdate(
-      { _id, clerkUserId: userId }, // ✅ restrict
+      { _id, clerkUserId: userId }, 
       { $pull: { sections: { _id: sectionId } } },
       { new: true }
     );
@@ -117,7 +117,7 @@ const deleteSection = async (req, res, next) => {
       return res.status(404).json({ success: false, message: "Menu not found or unauthorized" });
     }
 
-    res.status(200).json({ success: true, data: menu });
+    res.status(200).json({ success: true, data: menu});
   } catch (error) {
     next(error);
   }
@@ -131,14 +131,14 @@ const deleteMenu=async(req,res,next)=>{
     const { _id } = req.params;
 
     const menu = await Menu.findOneAndDelete(
-      { _id, clerkUserId: userId } // ✅ restrict
+      { _id, clerkUserId: userId }
     );
 
     if (!menu) {
       return res.status(404).json({ success: false, message: "Menu not found or unauthorized" });
     }
 
-    res.status(200).json({ success: true, message: "Menu deleted successfully" });
+    res.status(200).json({ success: true, message: "Menu deleted successfully",_id:menu._id });
   } catch (error) {
     next(error);
     
@@ -153,7 +153,7 @@ const addItemToSection = async (req, res, next) => {
     const { name, type, description, prices } = req.body;
 
     const menu = await Menu.findOneAndUpdate(
-      { _id, clerkUserId: userId, "sections._id": sectionId }, // ✅ restrict
+      { _id, clerkUserId: userId, "sections._id": sectionId }, 
       {
         $push: {
           "sections.$.items": { name, type, description, prices },

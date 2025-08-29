@@ -160,6 +160,7 @@ const handleDeletePage = async (pageId) => {
           </Link>
         )}
   </div>
+  <p className='text-gray-400 text-center mt-6'>*Edit feature will be available soon</p>
 </div>
 
          

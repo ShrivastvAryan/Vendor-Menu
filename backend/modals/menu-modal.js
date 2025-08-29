@@ -12,8 +12,8 @@ const ItemSchema = new mongoose.Schema({
 });
 
 const SectionSchema = new mongoose.Schema({
-  sectionName: { type: String, required: true }, // e.g., "MainCourse"
-  items: [ItemSchema], // array of items inside this section
+  sectionName: { type: String, required: true }, 
+  items: [ItemSchema], 
 });
 
 const MenuSchema = new mongoose.Schema(

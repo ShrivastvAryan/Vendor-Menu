@@ -10,9 +10,9 @@ const {
 const router = express.Router();
 
 router.post("/", createMenu);
-router.get("/:_id", getMenu);
+{/* THese Router will be live soon
 router.put("/:_id", updateMenu);
 router.delete("/:_id/section/:sectionId", deleteSection);
-router.post("/:_id/section/:sectionId/item", addItemToSection);
+router.post("/:_id/section/:sectionId/item", addItemToSection);*/}
 
 module.exports = router;

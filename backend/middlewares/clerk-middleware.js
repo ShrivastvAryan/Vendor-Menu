@@ -2,11 +2,11 @@ const { requireAuth } = require('@clerk/express');
 
 app.post("/", requireAuth(), async (req, res) => {
   try {
-    const { userId } = req.auth;  // Clerk injects auth info
+    const { userId } = req.auth;  
 
     const menu = new Menu({
       ...req.body,
-      clerkUserId: userId,  // ✅ attach current user
+      clerkUserId: userId, 
     });
 
     await menu.save();

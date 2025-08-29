@@ -50,7 +50,7 @@ const MenuForm = () => {
         router.push("/YourPage");
     } catch (err) {
       console.error(err);
-      toast.error('Error in saving the Menu', {
+      toast.error('Please check all the inputs are filled', {
       position: "top-center",
       autoClose: 5000,
       hideProgressBar: false,
@@ -87,7 +87,7 @@ transition={Bounce}
           Create Your Menu
         </h1>
         <p className="text-gray-600 mt-2">Authentic flavors, made with love</p>
-        <p className="text-gray-400 mt-6">*Leave Quarter/Half/Full empty if you don't want to include them in the menu</p>
+        <p className="text-gray-400 mt-6">*Replace - in place of 0 in Quarter/Half/Full empty if you don't want to include them in the menu</p>
       </div>
 
       <Accordion type="single" collapsible className="space-y-2">

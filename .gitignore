@@ -5,3 +5,4 @@ node_modules/
 .env
 
 /frontend/src/app/Testing
+/frontend/src/app/Edit

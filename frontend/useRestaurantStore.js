@@ -59,7 +59,6 @@ const useRestaurantStore = create((set, get) => ({
   const sections = [...get().sections];
   const item = sections[sectionIndex].items[itemIndex];
 
-  // Check if the field is a price (quarter/half/full)
   if (["quarter", "half", "full"].includes(field)) {
     item.prices = {
       ...item.prices,
