@@ -38,7 +38,7 @@ const MenuForm = () => {
       console.log("Submitted successfully:", res);
        toast.success('Menu Saved Successfully', {
        position: "top-center",
-       autoClose: 5000,
+       autoClose: 2000,
        hideProgressBar: false,
        closeOnClick: false,
        pauseOnHover: true,
@@ -46,11 +46,12 @@ const MenuForm = () => {
        progress: undefined,
        theme: "colored",
        transition: Bounce,
+      onClose: () => router.push("/YourPage")
        });
-        router.push("/YourPage");
+      
     } catch (err) {
       console.error(err);
-      toast.error('Please check all the inputs are filled', {
+      toast.error('Please check all the inputs are filled or Fill form again', {
       position: "top-center",
       autoClose: 5000,
       hideProgressBar: false,
@@ -87,7 +88,7 @@ transition={Bounce}
           Create Your Menu
         </h1>
         <p className="text-gray-600 mt-2">Authentic flavors, made with love</p>
-        <p className="text-gray-400 mt-6">*Use  &apos;-&apos; instead of 0 for Quarter/Half/Full if you don&apos;t want to include them in the menu</p>
+        <p className="text-gray-400 mt-6">* A &apos;-&apos; in Qtr/Half/Full section means the item will not be included in the menu.</p>
       </div>
 
       <Accordion type="single" collapsible className="space-y-2">

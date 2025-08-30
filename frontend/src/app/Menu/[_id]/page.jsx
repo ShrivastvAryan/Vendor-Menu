@@ -56,6 +56,7 @@ const Menu = () => {
           <p className="text-gray-500 mt-2 italic">
             Authentic flavors, made with love ❤️
           </p>
+          <p className="text-gray-400 mt-6">* A &apos;-&apos; in Qtr/Half/Full section means the item is not included in the menu.</p>
         </div>
 
         {/* Sections */}

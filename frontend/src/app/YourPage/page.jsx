@@ -1,152 +1,124 @@
 'use client'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   SignInButton,
   SignUpButton,
-  SignedIn,
   SignedOut,
-  UserButton,
 } from '@clerk/nextjs'
 import Link from 'next/link'
 import TextType from '@/blocks/Components/TextType/TextType'
-import { useUser } from "@clerk/nextjs";
+import { useUser, useAuth } from "@clerk/nextjs"
 import Navbar from '../Components/Navbar'
 import api from '../../../Api/api'
-import { useState, useEffect } from 'react'
-import { useAuth } from "@clerk/nextjs";
 import LogoLoader from '../Components/Loader'
-import { ToastContainer, toast, Bounce } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; 
 import SmallLoader from '../Components/SmallLoader'
+import { ToastContainer, toast, Bounce } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+import DeleteAlert from '../Components/Alert'
 
 const Create = () => {
-   const [progress, setProgress] = useState(50)
 
-   const { getToken } = useAuth();
+  const [pageId, setPageId] = useState(null)
+  const [loadingPage, setLoadingPage] = useState(true)
 
+  const { isLoaded, user } = useUser()
+  const { getToken } = useAuth()
+  const queryClient = useQueryClient()
+
+  // clear state on logout
   useEffect(() => {
-    const timer = setTimeout(() => setProgress(66), 500)
-    return () => clearTimeout(timer)
-  }, [])
-  
-  const { isLoaded, user } = useUser();
-  const [pageId, setPageId] = useState(null);
-  const [loadingPage, setLoadingPage] = useState(true);
+    if (isLoaded && !user) {
+      setPageId(null)
+      setLoadingPage(false)
+      console.log("User logged out, cleared pageId from state.")
+    }
+  }, [isLoaded, user])
 
-
-useEffect(() => {
-  if (isLoaded && !user) {
-    // just clear local state when logged out
-    setPageId(null);
-     setLoadingPage(false);
-    console.log("User logged out, cleared pageId from state.");
-  }
-}, [isLoaded, user]);
-
-
- useEffect(() => {
-  if (isLoaded && user) {
-    const fetchPage = async () => {
-      try {
-        setLoadingPage(true);
-        const token = await getToken();
-        const res = await api.get("/api/restaurant/mypage", {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        console.log("Fetched pageId:", res.data);
-        setPageId(res.data._id);
-      } catch (err) {
-        console.error("No page found for this user.", err);
-        setPageId(null);
+  // fetch page for logged-in user
+  useEffect(() => {
+    if (isLoaded && user) {
+      const fetchPage = async () => {
+        try {
+          setLoadingPage(true)
+          const token = await getToken()
+          const res = await api.get("/api/restaurant/mypage", {
+            headers: { Authorization: `Bearer ${token}` }
+          })
+          console.log("Fetched pageId:", res.data)
+          setPageId(res.data._id)
+        } catch (err) {
+          console.error("No page found for this user.", err)
+          setPageId(null)
+        } finally {
+          setLoadingPage(false)
+        }
       }
-      finally {
-        setLoadingPage(false);
-      }
-    };
+      fetchPage()
+    }
+  }, [isLoaded, user, getToken])
 
-    fetchPage();
-  }
-}, [isLoaded, user]);
+  const deleteMutation = useMutation({
+    mutationFn: async (pageId) => {
+      const token = await getToken()
+      return api.delete(`/api/restaurant/mypage/${pageId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+    },
+    onSuccess: () => {
+      toast.success("Page deleted successfully ")
+      setPageId(null)
+      queryClient.invalidateQueries(["mypage"])
+    },
+    onError: () => {
+      toast.error("Failed to delete page ")
+    }
+  })
 
-const handleDeletePage = async (pageId) => {
-  try {
-    const token = await getToken();
-    await api.delete(`/api/restaurant/mypage/${pageId}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-
-    console.log("Deleted page from backend.");
-    toast.success("Menu Deleted Successfully", { transition: Bounce });
-    setPageId(null);
-  } catch (err) {
-    console.error("Error deleting page:", err);
-    toast.error("Error in deleting the Menu", { transition: Bounce });
-  }
-};
-  
-
-  if (!isLoaded) {
-    return(
-      <LogoLoader/>
-    ) 
-  }
+  if (!isLoaded) return <LogoLoader />
 
   return (
-    <div> 
-       
-         <Navbar />
+    <div>
+      <Navbar />
 
-        <header className="flex justify-end items-center p-4 gap-4 h-16">
+      <header className="flex justify-end items-center p-4 gap-4 h-16">
         <SignedOut>
-        <SignInButton />
-        <SignUpButton />
+          <SignInButton />
+          <SignUpButton />
         </SignedOut>
+      </header>
 
-       </header>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+        transition={Bounce}
+      />
 
-       <ToastContainer
-       position="top-center"
-       autoClose={5000}
-       hideProgressBar={false}
-       newestOnTop={false}
-       closeOnClick={false}
-       rtl={false}
-       pauseOnFocusLoss
-       draggable
-       pauseOnHover
-       theme="colored"
-       transition={Bounce}
-       />
+      <div className="w-full max-w-2xl mx-auto shadow-xl my-8 p-6 sm:p-10 rounded-2xl bg-gradient-to-br from-white to-gray-50">
+        <div className="w-full flex justify-center">
+          <TextType
+            className="text-5xl font-bold text-gray-800 text-center"
+            text={[`Hi There, ${user?.fullName || "Guest"} 👋`]}
+            typingSpeed={75}
+            pauseDuration={1500}
+            showCursor={false}
+            cursorCharacter="|"
+          />
+        </div>
 
-
-        <div className="w-full max-w-2xl mx-auto shadow-xl my-8 p-6 sm:p-10 rounded-2xl bg-gradient-to-br from-white to-gray-50">
-  <div className="w-full flex justify-center">
-    <TextType
-      className="text-5xl font-bold text-gray-800 text-center"
-      text={[`Hi There, ${user?.fullName || "Guest"} 👋`]}
-      typingSpeed={75}
-      pauseDuration={1500}
-      showCursor={false}
-      cursorCharacter="|"
-    />
-  </div>
-
-  <div className="flex mt-12 justify-center gap-6">
-    {/* Create Button}
-    <Link href="/Create">
-      <div className="px-6 py-4 text-lg sm:text-xl font-semibold rounded-xl 
-        bg-[#FFDE21] text-black shadow-md 
-        hover:scale-105 hover:shadow-lg hover:brightness-105 transition-all duration-200 cursor-pointer">
-        Create New Page
-      </div>
-    </Link>*/}
-
-       {loadingPage ? ( 
-            <div className="text-gray-500 text-lg"><SmallLoader className='w-12 h-12'/></div>
+        <div className="flex mt-12 justify-center gap-6">
+          {loadingPage ? (
+            <SmallLoader className="w-12 h-12" />
           ) : pageId ? (
-         
             <>
-              
               <Link href={`/Menu/${pageId}`}>
                 <div className="px-6 py-4 text-lg sm:text-xl font-semibold rounded-xl 
                   bg-[#FFDE21] text-black shadow-md 
@@ -154,12 +126,11 @@ const handleDeletePage = async (pageId) => {
                   Your Page
                 </div>
               </Link>
-              <div className="px-6 py-4 text-lg sm:text-xl font-semibold rounded-xl 
-                bg-[#FFDE21] text-black shadow-md 
-                hover:scale-105 hover:shadow-lg hover:brightness-105 transition-all duration-200 cursor-pointer"
-                onClick={() => handleDeletePage(pageId)}>
-                Delete Page
-              </div>
+
+             <DeleteAlert
+            isLoading={deleteMutation.isLoading}
+            onConfirm={() => deleteMutation.mutate(pageId)}
+            />
             </>
           ) : (
             <Link href="/Create">
@@ -170,15 +141,13 @@ const handleDeletePage = async (pageId) => {
               </div>
             </Link>
           )}
-  </div>
-  <p className='text-gray-400 text-center mt-6'>*Edit feature will be available soon</p>
-</div>
+        </div>
 
-         
+        <p className="text-gray-400 text-center mt-6">
+          *Edit feature will be available soon
+        </p>
+      </div>
     </div>
-
-    
-
   )
 }
 

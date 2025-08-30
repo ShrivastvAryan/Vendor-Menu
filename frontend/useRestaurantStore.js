@@ -46,9 +46,9 @@ const useRestaurantStore = create((set, get) => ({
       name: "",
       type: "Veg",
       prices: {
-        quarter: 0,
-        half: 0,
-        full: 0,
+        quarter: '-',
+        half: '-',
+        full: '-',
       },
       description: "",
     });
